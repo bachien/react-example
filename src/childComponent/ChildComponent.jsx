@@ -23,13 +23,12 @@ class ChildComponent extends Component {
   render() {
     return (
       <div>
+        <div>Gia tri number cua ChildComponent: {this.state.number}</div>
+        <br></br>
+        <br></br>
+        <br></br>
         <Card
-          btnNamme1={this.state.btnNamme}
-          number={this.state.number}
-          onHandleClickPlus={this.onHandleClickPlus}
-          onHandleClick={this.onHandleClick}
-        ></Card>
-        <Card
+          limitNumber={10}
           btnNamme1={this.state.btnNamme}
           number={this.state.number}
           onHandleClickPlus={this.onHandleClickPlus}

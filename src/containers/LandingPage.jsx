@@ -2,11 +2,7 @@ import React, { Component } from "react";
 
 class LandingPage extends Component {
   render() {
-    return (
-      <div>
-        LandingPage Page
-      </div>
-    );
+    return <div>LandingPage Page</div>;
   }
 }
 

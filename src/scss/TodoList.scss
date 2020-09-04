@@ -1,0 +1,20 @@
+.todo-list {
+  .title {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+  }
+
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+
+    .remove-item {
+      cursor: pointer;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}

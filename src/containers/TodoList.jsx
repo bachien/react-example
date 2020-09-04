@@ -67,10 +67,7 @@ const TodoList = () => {
           })}{" "}
         </ListGroup>
       ) : (
-        <p className="center-align">
-          {" "}
-          You don 't have anything to do! Awesome!
-        </p>
+        <p className="msg-empty"> You don 't have anything to do! Awesome!</p>
       )}
       <InputGroup className="mt-3">
         <FormControl
@@ -83,7 +80,7 @@ const TodoList = () => {
         <InputGroup.Append>
           <Button variant="outline-secondary" onClick={addNewTodo}>
             {" "}
-            Add{" "}
+            Add Items{" "}
           </Button>
         </InputGroup.Append>
       </InputGroup>

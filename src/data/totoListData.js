@@ -1,4 +1,4 @@
-export const todolistData = [
+const todolistData = [
   {
     id: 1,
     content: "Play video game",
@@ -16,3 +16,11 @@ export const todolistData = [
     content: "PUBG Mobile",
   },
 ];
+
+export default () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      return resolve(todolistData);
+    }, 3000);
+  });
+};

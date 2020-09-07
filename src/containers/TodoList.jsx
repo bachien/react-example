@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TodoItem from "../components/TodoItem";
-import { initDataTodoList } from "../redux/actions/index";
+import { fetchData } from "../redux/actions/index";
 import { ListGroup, InputGroup, FormControl, Button } from "react-bootstrap";
 import "../scss/TodoList.scss";
 
 const TodoList = () => {
-  //#2 Used to get a single attribute or object inside the Reducer
-  const inputEl = useRef(null);
-  const handleClickBtn = () => {
-    inputEl.current.value = 123;
-  };
-
   //Get todoList from todoReducer
   const todoList = useSelector((state) => state.todos.todoList);
 
@@ -20,15 +14,11 @@ const TodoList = () => {
 
   //Local state for the input
   const [inputTodo, setInputTodo] = useState("");
-  const stableDispatch = useCallback(dispatch, []);
+  // const stableDispatch = useCallback(dispatch, []);
 
   useEffect(() => {
-    stableDispatch(initDataTodoList());
-  }, [stableDispatch]);
-
-  useEffect(() => {
-    console.log(todoList);
-  }, [todoList]);
+    dispatch(fetchData());
+  }, []);
 
   //Handle onChange event
   const handleInput = (e) => {
@@ -78,7 +68,7 @@ const TodoList = () => {
           type="text"
         />
         <InputGroup.Append>
-          <Button variant="outline-secondary" onClick={addNewTodo}>
+          <Button variant="primary" onClick={addNewTodo}>
             {" "}
             Add Items{" "}
           </Button>

@@ -12,7 +12,6 @@ class ChildComponent extends Component {
 
   onHandleClickPlus = () => {
     this.setState({ number: this.state.number + 1 });
-    let abc = this.state.number;
     // this.setState({ number: 4 });
   };
   onHandleClick = () => {

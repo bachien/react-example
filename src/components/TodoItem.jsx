@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ListGroupItem } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
+import { ListGroup, InputGroup, FormControl, Button } from "react-bootstrap";
 
 //Single todo item component
 const TodoItem = (props) => {
   //Get todoList from todoReducer
   const todoList = useSelector((state) => state.todos.todoList);
+  const [isEdit, updateEdit] = useState(false);
+  const [inputUpdate, setInputUpdate] = useState(props.item.content);
   //Use for all the dispatch actions
   const dispatch = useDispatch();
 
@@ -17,18 +20,84 @@ const TodoItem = (props) => {
     dispatch({ type: "REMOVE_TODO", payload: newTodoList });
   };
 
+  const updateItemFunc = (todoId) => {
+    updateEdit(false);
+    let newTodoList = [...todoList];
+    newTodoList.forEach((element, index) => {
+      if (element.id === todoId) {
+        element.content = inputUpdate;
+      }
+    });
+    dispatch({ type: "REMOVE_TODO", payload: newTodoList });
+  };
+
+  const canncelItemFunc = () => {
+    setInputUpdate(props.item.content);
+    updateEdit(false);
+  };
+
+  const handleInput = (e) => {
+    setInputUpdate(e.target.value);
+  };
+
   return (
-    <ListGroupItem key={props.item.id}>
-      <span>{props.item.content}</span>
-      <span
-        className="remove-item"
-        onClick={() => {
-          removeTodoItem(props.item.id);
-        }}
-      >
-        <MdClose></MdClose>
-      </span>
-    </ListGroupItem>
+    <div>
+      <ListGroupItem key={props.item.id}>
+        {isEdit === false ? (
+          <div className="show-mode">
+            <span>{props.item.content}</span>
+            <div>
+              <Button
+                variant="warning"
+                className="mr-2"
+                onClick={() => {
+                  updateEdit(!isEdit);
+                }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  removeTodoItem(props.item.id);
+                }}
+              >
+                Remove
+                {/* <MdClose></MdClose> */}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <InputGroup>
+            <FormControl
+              onChange={handleInput}
+              value={inputUpdate}
+              type="text"
+            />
+            <InputGroup.Append>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  canncelItemFunc();
+                }}
+              >
+                {" "}
+                Cancel{" "}
+              </Button>
+              <Button
+                variant="success"
+                onClick={() => {
+                  updateItemFunc(props.item.id);
+                }}
+              >
+                {" "}
+                Update{" "}
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+        )}
+      </ListGroupItem>
+    </div>
   );
 };
 

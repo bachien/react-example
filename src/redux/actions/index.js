@@ -28,6 +28,19 @@ export function getDataFailure() {
   };
 }
 
+
+export function removeTodo(newTodoList) {
+  return {
+    type: "REMOVE_TODO",
+    payload: newTodoList
+  }
+}
+
+export const updateTodoItems = (newTodoList) => ({
+  type: "UPDATE_TODO",
+  payload: newTodoList
+});
+
 /* export const initDataTodoList = function initDataTodoList() {
   console.log("haha");
   return {

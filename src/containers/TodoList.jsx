@@ -8,6 +8,7 @@ import "../scss/TodoList.scss";
 const TodoList = () => {
   //Get todoList from todoReducer
   const todoList = useSelector((state) => state.todos.todoList);
+  const isLoading = useSelector((state) => state.todos.isLoading);
 
   //Use for all the dispatch actions
   const dispatch = useDispatch();
@@ -49,7 +50,11 @@ const TodoList = () => {
   return (
     <section id="section-todo" className="todo-list">
       <h3 className="title"> Todo List </h3>{" "}
-      {todoList.length > 0 ? (
+
+      {/* {isLoading ? ( <div>Loading</div> ) : (table) */}
+      {isLoading ? (
+        <div>Loading</div>
+      ) : todoList.length > 0 ? (
         <ListGroup>
           {" "}
           {todoList.map((item) => {

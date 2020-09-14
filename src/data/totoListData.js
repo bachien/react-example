@@ -21,6 +21,6 @@ export default () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       return resolve(todolistData);
-    }, 3000);
+    }, 5000);
   });
 };

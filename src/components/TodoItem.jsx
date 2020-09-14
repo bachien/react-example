@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ListGroupItem } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import { ListGroup, InputGroup, FormControl, Button } from "react-bootstrap";
+import { removeTodo, updateTodoItems } from "../redux/actions/index";
 
 //Single todo item component
 const TodoItem = (props) => {
@@ -17,7 +18,7 @@ const TodoItem = (props) => {
   const removeTodoItem = (todoId) => {
     //filter to get the todoId which need to be remove
     let newTodoList = todoList.filter((item) => item.id !== todoId);
-    dispatch({ type: "REMOVE_TODO", payload: newTodoList });
+    dispatch(removeTodo(newTodoList));
   };
 
   const updateItemFunc = (todoId) => {
@@ -28,7 +29,7 @@ const TodoItem = (props) => {
         element.content = inputUpdate;
       }
     });
-    dispatch({ type: "REMOVE_TODO", payload: newTodoList });
+    dispatch(updateTodoItems(newTodoList));
   };
 
   const canncelItemFunc = () => {
@@ -40,35 +41,34 @@ const TodoItem = (props) => {
     setInputUpdate(e.target.value);
   };
 
-  return (
-    <div>
-      <ListGroupItem key={props.item.id}>
-        {isEdit === false ? (
-          <div className="show-mode">
-            <span>{props.item.content}</span>
-            <div>
-              <Button
-                variant="warning"
-                className="mr-2"
-                onClick={() => {
-                  updateEdit(!isEdit);
-                }}
-              >
-                Edit
-              </Button>
-              <Button
-                variant="danger"
-                onClick={() => {
-                  removeTodoItem(props.item.id);
-                }}
-              >
-                Remove
-                {/* <MdClose></MdClose> */}
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <InputGroup>
+  const renderShowMode = () => (
+    <div className="show-mode">
+      <span>{props.item.content}</span>
+      <div>
+        <Button
+          variant="warning"
+          className="mr-2"
+          onClick={() => {
+            updateEdit(!isEdit);
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            removeTodoItem(props.item.id);
+          }}
+        >
+          Remove
+          {/* <MdClose></MdClose> */}
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderEditMode = () => (
+    <InputGroup>
             <FormControl
               onChange={handleInput}
               value={inputUpdate}
@@ -95,6 +95,15 @@ const TodoItem = (props) => {
               </Button>
             </InputGroup.Append>
           </InputGroup>
+  )
+
+  return (
+    <div>
+      <ListGroupItem key={props.item.id}>
+        {isEdit === false ? (
+          renderShowMode()
+        ) : (
+          renderEditMode()
         )}
       </ListGroupItem>
     </div>

@@ -1,5 +1,6 @@
 const initState = {
   todoList: [],
+  isLoading: false
 };
 
 const todoReducer = (state = initState, action) => {
@@ -9,16 +10,19 @@ const todoReducer = (state = initState, action) => {
       return {
         ...state,
         todoList: [],
+          isLoading: true
       };
     case "FETCHING_DATA_SUCCESS":
       return {
         ...state,
         todoList: action.payload,
+          isLoading: false,
       };
     case "FETCHING_DATA_FAILURE":
       return {
         ...state,
         todoList: [],
+          isLoading: false,
       };
     case "ADD_TODO":
       return {
